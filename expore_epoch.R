@@ -1,16 +1,16 @@
-epoch[timestamp >= ymd_hms("20160504 123600") & timestamp <= ymd_hms("20160504 130000") ,.(n_rows = .N,
+epoch[timestamp >= ymd_hms("20160504 182500") & timestamp <= ymd_hms("20160504 190500") ,.(n_rows = .N,
          n_steps = sum(steps),
          mean_steps = mean(steps),
          max_steps = max(steps),
          min_steps = min(steps)), serialnumber]
 
-ggplot(epoch[timestamp >= ymd_hms("20160504 123600") & timestamp <= ymd_hms("20160504 130300")], 
+ggplot(epoch[timestamp >= ymd_hms("20160504 182500") & timestamp <= ymd_hms("20160504 190500")], 
        aes(timestamp, steps, group = serialnumber)) + 
   geom_line(aes(col = serialnumber)) +
   facet_wrap(~serialnumber, ncol = 2) + 
   labs(title = "Summary of step activity from 5s epoch",
-       subtitle = "NOTE: Walk occurred over lunchtime period",
-       caption = "Data filtered to show period between 12:36 - 13:03",
+       subtitle = "NOTE: Walk occurred 18:30 to 18:55",
+       caption = "Data filtered to show period between 18:25 - 19:05",
        y = "Steps / epoch",
        x = "") + 
   theme_bw() +
