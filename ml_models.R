@@ -1,21 +1,26 @@
 # remove control device
-model.data <- summary[device_id != "TAS1E31150005"]
+model.data <- summary[device_id != "TAS1E31150005"][,steps := cut(steps, 5),]
+
+# distribution of steps per device
+table(model.data[,.(steps, device_id),])
 
 require(caret)
 require(caretEnsemble)
 
 # partition data
-seeds <- c(456)#, 465, 783, 315, 97851, 951)
+seeds <- c(456, 465, 783, 315, 97851, 951)
 
-for (s in seeds) {
+for (seed in seeds) {
 
-set.seed(s)
+set.seed(seed)
 
 s <- createDataPartition(model.data$device_id, p = 0.6, list = FALSE)
 training <- model.data[s][,':='(
- # device_id = as.factor(device_id),
+  device_id = as.factor(device_id),
+  steps = as.factor(steps),
   epoch_id = NULL)]
 testing <- model.data[-s][,':='(
+  steps = as.factor(steps),
   device_id = as.factor(device_id),
   epoch_id = NULL)]
 
@@ -28,7 +33,7 @@ my_control <- trainControl(
 )
 
 
-set.seed(s * 3)
+set.seed(seed * 3)
 # train list of models using control spec'd above
 model_list <- caretList(device_id ~ ., 
                         data=training, 
