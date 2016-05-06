@@ -48,3 +48,7 @@ rm(dt)
 # collapse to single file
 data <- rbindlist(data)
 setkey(data, device_id, epoch_id)
+
+
+# join epoch steps to raw
+data <- data[epoch] 
