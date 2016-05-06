@@ -1,6 +1,5 @@
 
-# join epoch steps to raw
-data <- data[epoch] 
+
 
 # plot raw data for single epoch
 data[datetime >= ymd_hms("2016-05-04 18:45:00") & datetime <= ymd_hms("2016-05-04 18:45:05")] %>%
