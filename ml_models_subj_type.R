@@ -19,10 +19,12 @@ set.seed(456456)
 
 s <- createDataPartition(model.data2$subj_type, p = 0.6, list = FALSE)
 training <- model.data2[s][,':='(
+  device_id = NULL,
   subj_type = as.factor(subj_type),
   steps = as.factor(steps),
   epoch_id = NULL)]
 testing <- model.data2[-s][,':='(
+  device_id = NULL,
   steps = as.factor(steps),
   subj_type = as.factor(subj_type),
   epoch_id = NULL)]
