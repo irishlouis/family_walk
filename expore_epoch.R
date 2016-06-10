@@ -5,12 +5,12 @@ epoch[timestamp >= ymd_hms("20160504 183000") & timestamp <= ymd_hms("20160504 1
         max_steps = max(steps),
         min_steps = min(steps)), serialnumber]
 
-ggplot(epoch[timestamp >= ymd_hms("20160504 183000") & timestamp <= ymd_hms("20160504 185500")], 
+ggplot(epoch[timestamp >= ymd_hms("20160504 183000") & timestamp <= ymd_hms("20160504 185500") & serialnumber != "TAS1E31150005"], 
        aes(timestamp, steps, group = serialnumber)) + 
   geom_line() +
-  facet_wrap(~serialnumber, ncol = 2) + 
+  facet_wrap(~serialnumber, ncol = 1) + 
   labs(title = "Summary of step activity from 5s epochs",
-       subtitle = "Steps per epoch data for adult 2 subjects (1 wearing 2 devices) and a dog.\nContinuous walking except for a short break when one of the subjects went for swim in river.",
+       subtitle = "Steps per epoch data for adult 2 subjects and a dog.\nContinuous walking except for a short break when one of the subjects went for swim in river.",
        caption = "Data filtered to show walking period between 18:30 - 18:55",
        y = "Steps / epoch",
        x = "Time (hh:mm)") + 
